@@ -3,6 +3,7 @@
 		<Notebook
 			v-for="(notebook, i) in notebooks"
 			:index="notebook.id"
+			v-bind:key="notebook.id"
 		/>
 		<p v-if="!notebooks.length">There is no notebooks yet</p>
 	</div>
