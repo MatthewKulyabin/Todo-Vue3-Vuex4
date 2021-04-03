@@ -3,7 +3,9 @@
 		<div>
 			<input
 				type="text"
-				placeholder="Search"
+				placeholder="Search..."
+				v-model="searchText"
+				@keydown.enter="searchNotebookHandler"
 			/>
 		</div>
 		<div
@@ -19,9 +21,17 @@ import {mapGetters} from 'vuex';
 
 export default {
 	name: 'Header',
+	data() {
+		return {
+			searchText: '',
+		};
+	},
 	methods: {
 		addNotebook() {
 			this.$store.commit('addNotebook');
+		},
+		searchNotebookHandler() {
+			this.$store.commit('searchNotebook', {text: this.searchText});
 		},
 	},
 	computed: {

@@ -1,6 +1,12 @@
 <template>
 	<div class="notebooks">
 		<Notebook
+			v-if="searchedNotebookIndex"
+			:index="searchedNotebookIndex"
+			v-bind:key="searchedNotebookIndex"
+		/>
+		<Notebook
+			v-if="!searchedNotebookIndex"
 			v-for="(notebook, i) in notebooks"
 			:index="notebook.id"
 			v-bind:key="notebook.id"
@@ -23,7 +29,10 @@ export default {
 		...mapGetters([
 			'notebooks'
 		]),
-	}
+		searchedNotebookIndex() {
+      return this.$store.getters.searchedNotebookIndex;
+    },
+	},
 }
 </script>
 

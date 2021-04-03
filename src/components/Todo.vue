@@ -15,6 +15,7 @@
 				v-model="titleText"
 				@keydown.enter="todoChangeTitleHandler"
 			/>
+			{{date()}}
 		</div>
 		<input
 			class="priority_input"
@@ -38,6 +39,9 @@ export default {
 		};
 	},
 	methods: {
+		date() {
+			return this.$store.getters.todo(this.index, this.todoIndex).date;
+		},
 		todoRemoveHandler() {
 			this.$store.commit('todoRemove', {index: this.index, todoIndex: this.todoIndex});
 		},

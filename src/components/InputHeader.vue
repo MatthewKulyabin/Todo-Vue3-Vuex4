@@ -1,5 +1,7 @@
 <template>
-	<div class="inputHeader">
+	<div 
+		class="inputHeader"
+	>
 		<div>
 			<input
 				class="no_border"
@@ -20,6 +22,18 @@
 				src="https://img.icons8.com/ios/100/000000/delete-trash.png"
 				@click="removeNotebookHandler"
 			/>
+			<img
+				class="icon"
+				src="https://img.icons8.com/ios/100/000000/alphabetical-sorting--v2.png"
+				@click="sortMenuHandler"
+			/>
+			<ul v-if="sortMenu">
+				<li
+					class="sortLi"
+					v-for="item in sortBy"
+					@click="sortTodosHandler(item)"
+				>{{item.toUpperCase()}}</li>
+			</ul>
 		</div>
 	</div>
 </template>
@@ -31,6 +45,8 @@ export default {
 	data() {
 		return {
 			notebookTitle: this.$store.getters.notebook(this.index).title,
+			color: this.$store.getters.notebook(this.index).color,
+			sortMenu: false,
 			changeColorClick: 0,
 		};
 	},
@@ -42,11 +58,22 @@ export default {
 			this.$store.commit('removeNotebook', {index: this.index});
 		},
 		notebookChangeColorHandler() {
-			if (this.changeColorClick < this.$store.getters.colors.length) {
+			if (this.changeColorClick >= this.$store.getters.colors.length) {
 				this.changeColorClick = 0;
 			}
 			this.$store.commit('notebookChangeColor', {index: this.index, colorNumber: this.changeColorClick});
 			this.changeColorClick++;
+		},
+		sortMenuHandler() {
+			this.sortMenu = !this.sortMenu;
+		},
+		sortTodosHandler(item) {
+			this.$store.commit('sortTodos', {index: this.index, item});
+		},
+	},
+	computed: {
+		sortBy() {
+			return this.$store.getters.sortBy;
 		},
 	},
 }
@@ -69,5 +96,8 @@ export default {
 	}
 	.no_border {
 		border: 0px solid #fff;
+	}
+	.sortLi {
+		cursor: pointer;
 	}
 </style>

@@ -1,7 +1,7 @@
 <template>
 	<div 
 		class="notebook"
-		:style="changeColor"
+		:style="changeNotebookColor"
 	>
 		<InputHeader :index="index" />
 		<Todos :index="index" />
@@ -15,17 +15,17 @@ import Todos from './Todos';
 export default {
 	props: ['index'],
 	name: 'Notebook',
-	methods: {
-		changeColor() {
-			const color = this.$store.getters.notebook(index).color;
-			return {
-				border: `3px solid ${color}`
-			};
-		}
-	},
 	components: {
 		InputHeader,
 		Todos,
+	},
+	computed: {
+		changeNotebookColor() {
+			const notebook = this.$store.getters.notebook(this.index);
+			return {
+				border: `1px solid ${notebook.color}`,
+			};
+		},
 	},
 }
 </script>

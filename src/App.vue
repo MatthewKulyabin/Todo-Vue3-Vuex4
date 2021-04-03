@@ -1,9 +1,10 @@
 <template>
   <Header />
-  <Notebooks />
+  <Notebooks/>
 </template>
 
 <script>
+import {onBeforeMount} from 'vue';
 import {mapGetters} from 'vuex';
 
 import Header from './components/Header';
